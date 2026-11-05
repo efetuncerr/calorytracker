@@ -234,7 +234,7 @@ export default function ProfileForm({ initial }: { initial: Initial }) {
 
 function DeleteAccount() {
   const router = useRouter();
-  const { confirm, dialog } = useConfirm();
+  const { askConfirm, dialog } = useConfirm();
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
