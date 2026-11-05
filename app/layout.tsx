@@ -11,10 +11,11 @@ const inter = Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-body' }
 const nunito = Nunito({ subsets: ['latin', 'latin-ext'], variable: '--font-display' });
 
 export const metadata: Metadata = {
+  
   title: 'ALMINA · calory tracker',
   description: 'ALMINA calory tracker. Günlük besin ve kalori takibi.',
 };
-
+export const dynamic = 'force-dynamic';
 export default async function RootLayout({
   children,
 }: {
