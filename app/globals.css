@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --color-bg: #f7f5f0;
+  --color-surface: #ffffff;
+  --color-ink: #2b2f2a;
+  --color-muted: #6b7168;
+  --color-primary: #7fa88a;
+  --color-primary-hover: #5f8a6b;
+  --color-primary-fill: #3e6a4d;
+  --color-primary-fill-hover: #345c42;
+  --color-on-primary: #f7f5f0;
+  --color-accent: #e8b98a;
+  --color-line: #e6e2d8;
+  --color-success: #7fa88a;
+  --color-success-text: #3e6a4d;
+  --color-warning: #e5b567;
+  --color-warning-text: #7a5a1c;
+  --color-danger: #d98a7e;
+  --color-danger-text: #8f4a42;
+  --macro-kcal: #c06e2e;
+  --macro-protein: #5f8a6b;
+  --macro-carb: #5c86b4;
+  --macro-fat: #a68516;
+  --shadow-soft: 0 4px 24px rgba(43, 47, 42, 0.05);
+  --focus-ring: #3e6a4d;
+}
+
+.dark {
+  color-scheme: dark;
+  --color-bg: #181c1a;
+    --color-surface: #222823;
+    --color-ink: #e8eae5;
+    --color-muted: #9aa39b;
+    --color-primary: #8fbf9b;
+    --color-primary-hover: #9dccaa;
+    --color-primary-fill: #8fbf9b;
+    --color-primary-fill-hover: #6fa884;
+    --color-on-primary: #181c1a;
+    --color-accent: #e3b58a;
+    --color-line: #323a34;
+    --color-success: #8fbf9b;
+    --color-success-text: #8fbf9b;
+    --color-warning: #e5b567;
+    --color-warning-text: #f0d09a;
+    --color-danger: #d98a7e;
+    --color-danger-text: #e7b2a8;
+    --macro-kcal: #e3a56a;
+    --macro-protein: #8fbf9b;
+    --macro-carb: #8fb4d6;
+    --macro-fat: #e2c56a;
+    --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.28);
+  --focus-ring: #9dccaa;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body), Inter, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+html.theme-ready,
+html.theme-ready body,
+html.theme-ready body * {
+  transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease, outline-color 250ms ease, fill 250ms ease, stroke 250ms ease;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), Nunito, sans-serif;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.animate-pulse,
+.animate-spin {
+  animation-duration: 400ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-card bg-surface p-5 text-ink shadow-soft;
+  }
+
+  .btn {
+    @apply inline-flex h-12 items-center justify-center rounded-control bg-primary-fill px-4 font-semibold text-on-primary;
+  }
+
+  .btn:hover {
+    background: var(--color-primary-fill-hover);
+  }
+
+  .field {
+    @apply h-12 w-full rounded-control border border-line bg-surface px-3 text-body text-ink outline-none;
+  }
+}

@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  passwordHash      String
+  name              String
+  createdAt         DateTime  @default(now())
+  dailyCalorieGoal  Int?
+  dailyProteinGoal  Float?
+  dailyCarbGoal     Float?
+  dailyFatGoal      Float?
+  weight            Float?
+  height            Float?
+  age               Int?
+  gender            String?
+  activityLevel     String?
+  weightGoal        String?
+  theme             String    @default("system")
+
+  logEntries        LogEntry[]
+  customFoods       Food[]              @relation("CustomFoods")
+  resetTokens       PasswordResetToken[]
+
+  @@map("users")
+}
+
+model Food {
+  id                String    @id @default(cuid())
+  name              String
+  nameSearch        String
+  category          String?
+  caloriesPer100g   Float
+  proteinPer100g    Float
+  carbsPer100g      Float
+  fatPer100g        Float
+  fiberPer100g      Float?
+  sugarPer100g      Float?
+  isCustom          Boolean   @default(false)
+  barcode           String?   @unique
+  source            String?
+  createdByUserId   String?
+  createdBy         User?     @relation("CustomFoods", fields: [createdByUserId], references: [id])
+
+  portions          FoodPortion[]
+  logEntries        LogEntry[]
+
+  @@index([nameSearch])
+  @@map("foods")
+}
+
+model FoodPortion {
+  id     String @id @default(cuid())
+  foodId String
+  food   Food   @relation(fields: [foodId], references: [id], onDelete: Cascade)
+  label  String
+  grams  Float
+
+  @@map("food_portions")
+}
+
+model LogEntry {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  foodId    String
+  food      Food      @relation(fields: [foodId], references: [id])
+  date      DateTime
+  mealType  String
+  grams     Float
+  createdAt DateTime  @default(now())
+
+  @@index([userId, date])
+  @@map("log_entries")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@map("password_reset_tokens")
+}
+
+model LoginAttempt {
+  id       String   @id @default(cuid())
+  ip       String
+  failedAt DateTime @default(now())
+
+  @@index([ip, failedAt])
+  @@map("login_attempts")
+}
